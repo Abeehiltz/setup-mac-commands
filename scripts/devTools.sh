@@ -4,6 +4,17 @@ source utils.sh
 e_header "Configure dev tools..."
 
 if has_command "brew"; then
+  if ! has_command "git-flow"; then
+    get_consent "Install git-flow"
+    if has_consent; then
+      e_pending "Installing git-flow"
+      brew install git-flow
+      test_command "git-flow"
+    fi
+  fi
+fi
+
+if has_command "brew"; then
   if ! has_command "nvm"; then
     get_consent "Install nvm (Node via nvm)"
     if has_consent; then
