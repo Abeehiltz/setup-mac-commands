@@ -33,17 +33,19 @@ e_success() {
 }
 
 has_command() {
-  if [ $(type -P $1) ]; then
+  if command -v $1 >> /dev/null; then
     return 0
-  fi
+  fi 
   return 1
 }
 
 test_command() {
   if has_command $1; then
     e_success "$1"
+    return 0
   else
     e_failure "$1"
+    return 1
   fi
 }
 
@@ -73,11 +75,9 @@ has_path() {
 test_path() {
   # local path=$(echo "$@" | sed 's:.*/::')
   if has_path $1; then
-    # e_success "$path"
     e_success "$1"
   else
-    # e_failure "$path"
-    e_failure "$1"
+    e_error "$1"
   fi
 }
 
@@ -93,7 +93,7 @@ test_app() {
   if has_app $1; then
     e_success "$1"
   else
-    e_failure "$1"
+    e_error "$1"
   fi
 }
 

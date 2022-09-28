@@ -20,7 +20,12 @@ if has_command "brew"; then
     if has_consent; then
       e_pending "Installing nvm"
       curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-      test_command "nvm"
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+      [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+      if test_command "nvm"; then
+        nvm install --lts
+      fi
     fi
   fi
 fi
@@ -30,7 +35,7 @@ if has_command "brew"; then
     get_consent "Install yarn"
     if has_consent; then
       e_pending "Installing yarn"
-	  corepack enable
+      corepack enable
       test_command "yarn"
     fi
   fi

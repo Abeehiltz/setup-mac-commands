@@ -31,6 +31,7 @@ fi
 if ! has_command "brew"; then
   e_pending "Installing brew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
   brew doctor
   test_command "brew"
 fi

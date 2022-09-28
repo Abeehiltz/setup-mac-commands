@@ -85,6 +85,7 @@ if has_command "brew"; then
 	  brew install starship
 	  brew tap homebrew/cask-fonts && brew install --cask font-fira-code-nerd-font
       test_command "starship"
+          mkdir -p ~/.config
 	  cp ../configs/starship.toml ~/.config/starship.toml
 	  echo 'export STARSHIP_CONFIG=~/.config/starship.toml' >> ~/.zshrc
 	  echo 'eval "$(starship init zsh)"' >> ~/.zshrc
