@@ -31,17 +31,6 @@ if has_command "brew"; then
 fi
 
 if has_command "brew"; then
-  if ! has_command "yarn"; then
-    get_consent "Install yarn"
-    if has_consent; then
-      e_pending "Installing yarn"
-      corepack enable
-      test_command "yarn"
-    fi
-  fi
-fi
-
-if has_command "brew"; then
     test_app "Insomnia"
     if ! has_app "Insomnia"; then
       get_consent "Install Insomnia.app"
@@ -76,6 +65,19 @@ if has_command "brew"; then
         test_app "Visual Studio Code"
       fi
     fi
+fi
+
+if has_command "brew"; then
+  test_brew "neovim"
+  if ! has_brew "neovim"; then
+    get_consent "Install neovim"
+    if has_consent; then
+      e_pending "Installing neovim"
+      brew install neovim
+      test_brew "neovim"
+    fi
+  
+  fi
 fi
 
 

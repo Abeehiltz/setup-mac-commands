@@ -1,6 +1,5 @@
 source utils.sh
 
-
 e_header "Configure terminal..."
 
 if has_command "brew"; then
@@ -15,15 +14,15 @@ if has_command "brew"; then
 fi
 
 if has_command "brew"; then
-    test_app "iTerm"
-    if ! has_app "iTerm"; then
-      get_consent "Install iTerm.app"
-      if has_consent; then
-        e_pending "Installing iTerm2"
-        brew install iterm2
-        test_app "iTerm"
-      fi
+  test_app "iTerm"
+  if ! has_app "iTerm"; then
+    get_consent "Install iTerm.app"
+    if has_consent; then
+      e_pending "Installing iTerm2"
+      brew install iterm2
+      test_app "iTerm"
     fi
+  fi
 fi
 
 if has_command "brew"; then
@@ -54,43 +53,53 @@ if has_command "brew" && has_command "zsh"; then
     if has_consent; then
       e_pending "Installing zsh-autosuggestions"
       brew install zsh-autosuggestions
-      echo "# Fish shell-like fast/unobtrusive autosuggestions for Zsh." >> ~/.zshrc
-      echo "source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
+      echo ""  >>~/.zshrc
+      echo "# Fish shell-like fast/unobtrusive autosuggestions for Zsh." >>~/.zshrc
+      echo "source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" >>~/.zshrc
+      echo ""  >>~/.zshrc
       test_brew "zsh-autosuggestions"
     fi
   fi
 fi
 
-if has_command "brew" && has_command "zsh"; then
-  if ! has_brew "zsh-syntax-highlighting"; then
-    get_consent "Install zsh-syntax-highlighting"
-    if has_consent; then
-      e_pending "Installing zsh-syntax-highlighting"
-      brew install zsh-syntax-highlighting
-      echo "# Fish shell-like syntax highlighting for Zsh." >> ~/.zshrc
-      echo "# Warning: Must be last sourced!" >> ~/.zshrc
-      echo "source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
-      test_brew "zsh-syntax-highlighting"
-    fi
+if has_command "brew"; then
+  get_consent "Install Firacode nerd font"
+  if has_consent; then
+    e_pending "Installing font..."
+    brew tap homebrew/cask-fonts && brew install --cask font-fira-code-nerd-font
   fi
 fi
-
 
 
 if has_command "brew"; then
-  if ! has_command "starship"; then
-    get_consent "Install starship"
-    if has_consent; then
-      e_pending "Installing starship"
-	  brew install starship
-	  brew tap homebrew/cask-fonts && brew install --cask font-fira-code-nerd-font
-      test_command "starship"
-          mkdir -p ~/.config
-	  cp ../configs/starship.toml ~/.config/starship.toml
-	  echo 'export STARSHIP_CONFIG=~/.config/starship.toml' >> ~/.zshrc
-	  echo 'eval "$(starship init zsh)"' >> ~/.zshrc
-    fi
+  get_consent "Install powerlevel10k"
+  if has_consent; then
+    e_pending "Installing powerlevel 10k..."
+    brew install powerlevel10k
+    echo "source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc
+    echo "" >>~/.zshrc
+    test_brew "powerlevel10k"
+    echo "run p10k configure in iTerm later!"
   fi
 fi
+
+
+
+
+# No longer using Starship
+# if has_command "brew"; then
+#   if ! has_command "starship"; then
+#     get_consent "Install starship"
+#     if has_consent; then
+#       e_pending "Installing starship"
+#       brew install starship
+#       test_command "starship"
+#       mkdir -p ~/.config
+#       cp ../configs/starship.toml ~/.config/starship.toml
+#       echo 'export STARSHIP_CONFIG=~/.config/starship.toml' >>~/.zshrc
+#       echo 'eval "$(starship init zsh)"' >>~/.zshrc
+#     fi
+#   fi
+# fi
 
 e_footer "Terminal configuration done!"

@@ -9,6 +9,13 @@ if has_consent; then
   killall Dock
 fi
 
+get_consent "Copy .p10k.zsh and .zshrc config?"
+if has_consent; then
+  cp -p ../configs/.p10k.zsh ~
+  cp -p ../configs/.zshrc ~
+fi
+
+
 if has_command "zsh"; then
   if has_path ".oh-my-zsh"; then
     get_consent "Update oh-my-zsh"
