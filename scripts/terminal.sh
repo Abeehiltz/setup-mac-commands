@@ -53,10 +53,10 @@ if has_command "brew" && has_command "zsh"; then
     if has_consent; then
       e_pending "Installing zsh-autosuggestions"
       brew install zsh-autosuggestions
-      echo ""  >>~/.zshrc
+      echo "" >>~/.zshrc
       echo "# Fish shell-like fast/unobtrusive autosuggestions for Zsh." >>~/.zshrc
       echo "source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" >>~/.zshrc
-      echo ""  >>~/.zshrc
+      echo "" >>~/.zshrc
       test_brew "zsh-autosuggestions"
     fi
   fi
@@ -70,7 +70,6 @@ if has_command "brew"; then
   fi
 fi
 
-
 if has_command "brew"; then
   get_consent "Install powerlevel10k"
   if has_consent; then
@@ -83,8 +82,49 @@ if has_command "brew"; then
   fi
 fi
 
+if has_command "brew"; then
+  if ! has_brew "ripgrep"; then
+    get_consent "Install ripgrep"
+    if has_consent; then
+      e_pending "Installing ripgrep..."
+      brew install ripgrep
+      test_brew "ripgrep"
+    fi
+  fi
+fi
 
+if has_command "brew"; then
+  if ! has_brew "fd"; then
+    get_consent "Install fd"
+    if has_consent; then
+      e_pending "Installing fd..."
+      brew install fd
+      test_brew "fd"
+    fi
+  fi
+fi
 
+if has_command "brew"; then
+  if ! has_brew "lazygit"; then
+    get_consent "Install lazygit"
+    if has_consent; then
+      e_pending "Installing lazygit..."
+      brew install lazygit
+      test_brew "lazygit"
+    fi
+  fi
+fi
+
+if has_command "brew"; then
+  if ! has_brew "wget"; then
+    get_consent "Install wget"
+    if has_consent; then
+      e_pending "Installing wget..."
+      brew install wget
+      test_brew "wget"
+    fi
+  fi
+fi
 
 # No longer using Starship
 # if has_command "brew"; then
