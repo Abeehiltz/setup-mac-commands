@@ -80,6 +80,19 @@ if has_command "brew"; then
   fi
 fi
 
+if has_command "brew"; then
+  test_brew "docker"
+  if ! has_brew "docker"; then
+    get_consent "Install docker"
+    if has_consent; then
+      e_pending "Installing docker"
+      brew install docker
+      test_brew "docker"
+    fi
+  
+  fi
+fi
+
 
 
 e_footer "Dev tool configuration done!"
