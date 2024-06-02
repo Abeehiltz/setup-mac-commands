@@ -15,6 +15,11 @@ if has_consent; then
   cp -p ../configs/.zshrc ~
 fi
 
+get_consent "Copy neovim config?"
+if has_consent; then
+  cp -p -r ../configs/nvim ~/.config/
+fi
+
 
 if has_command "zsh"; then
   if has_path ".oh-my-zsh"; then
