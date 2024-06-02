@@ -81,12 +81,12 @@ if has_command "brew"; then
 fi
 
 if has_command "brew"; then
-  test_brew "docker"
-  if ! has_brew "docker"; then
+  test_app "Docker"
+  if ! has_app "Docker"; then
     get_consent "Install docker"
     if has_consent; then
       e_pending "Installing docker"
-      brew install docker
+      brew install --cask docker
       test_brew "docker"
     fi
   

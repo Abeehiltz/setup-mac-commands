@@ -9,6 +9,7 @@ if has_consent; then
   killall Dock
 fi
 
+# For custom config, even if we did add into the .zshrc during the other scripts.
 get_consent "Copy .p10k.zsh and .zshrc config?"
 if has_consent; then
   cp -p ../configs/.p10k.zsh ~
